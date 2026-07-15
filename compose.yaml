@@ -1,0 +1,53 @@
+name: nkriz-notepad
+
+services:
+  db:
+    image: postgres:17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nkriz}
+      POSTGRES_USER: ${POSTGRES_USER:-nkriz}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nkriz-docker-local}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${APP_PORT:-8787}:8787"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 8787
+      DATA_DIR: /data
+      WEB_DIST_DIR: /app/apps/web/dist
+      SERVE_WEB: "true"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-nkriz}:${POSTGRES_PASSWORD:-nkriz-docker-local}@db:5432/${POSTGRES_DB:-nkriz}?schema=public
+      SESSION_PEPPER: ${DOCKER_SESSION_PEPPER:-}
+      COOKIE_SECURE: ${DOCKER_COOKIE_SECURE:-false}
+      TRUST_PROXY: ${DOCKER_TRUST_PROXY:-false}
+      MAX_FILE_BYTES: ${DOCKER_MAX_FILE_BYTES:-104857600}
+      MAX_STORAGE_BYTES: ${DOCKER_MAX_STORAGE_BYTES:-10737418240}
+    volumes:
+      - app_data:/data
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  postgres_data:
+  app_data:

@@ -1,0 +1,33 @@
+# Dependencies and package-manager state
+node_modules/
+.pnpm-store/
+
+# Build, test, and tool output
+dist/
+.vite/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+*.log
+pnpm-debug.log*
+npm-debug.log*
+
+# Runtime data and local databases
+data/
+*.db
+*.db-shm
+*.db-wal
+
+# Local configuration and secrets (examples remain versioned)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~

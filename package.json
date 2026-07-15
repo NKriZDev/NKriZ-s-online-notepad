@@ -1,0 +1,26 @@
+{
+  "name": "nkriz-online-notepad",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A self-hosted, browser-encrypted notepad, secrets manager, and file vault.",
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10.12.4"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter './apps/*' dev",
+    "dev:native": "./scripts/dev-native.sh",
+    "build": "pnpm -r build",
+    "start": "./scripts/start-native.sh",
+    "docker:up": "docker compose up --build -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f app",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

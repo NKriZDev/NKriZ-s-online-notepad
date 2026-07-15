@@ -1,0 +1,13 @@
+{
+  "name": "NKriZ's Online Notepad",
+  "short_name": "NKriZ Notepad",
+  "description": "A zero-knowledge personal notepad and file vault",
+  "theme_color": "#0f6cbd",
+  "background_color": "#f3f3f3",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

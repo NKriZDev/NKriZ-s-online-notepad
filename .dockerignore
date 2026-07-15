@@ -1,0 +1,16 @@
+.git
+.gitignore
+.DS_Store
+.env
+.env.*
+node_modules
+**/node_modules
+**/dist
+data
+coverage
+.pnpm-store
+.vite
+playwright-report
+test-results
+npm-debug.log*
+pnpm-debug.log*
